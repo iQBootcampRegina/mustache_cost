@@ -8,5 +8,7 @@ namespace CostService
 {
 	interface IShippingInventoryRepository
 	{
+		ShippingInventoryItem CacheItem(int productId, decimal weight, decimal width, decimal length, decimal depth);
+		ShippingInventoryItem GetItem(int productId);
 	}
 }

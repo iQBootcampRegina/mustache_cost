@@ -9,6 +9,17 @@ namespace CostService
 	{
 		public int ProductId { get; set; }
 		public decimal Weight { get; set; }
-		public decimal Dimensions { get; set; }
+		public decimal Width { get; set; }
+		public decimal Length { get; set; }
+		public decimal Depth { get; set; }
+
+		public void SetDimensions(decimal width, decimal height, decimal depth)
+		{
+			Width = width;
+			Length = Length;
+			Depth = depth;
+		}
+
+		
 	}
 }
