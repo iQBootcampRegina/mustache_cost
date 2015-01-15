@@ -10,7 +10,7 @@ namespace CostService
 	{
 		public CostModule()
 		{
-			
+			Get["/"] = x => "TEST";
 		}
 	}
 }

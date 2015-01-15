@@ -13,6 +13,7 @@ namespace CostService
 			base.ConfigureApplicationContainer(container);
 
 			container.Register<IShippingInventoryRepository, InMemoryShippingInventoryRepository>();
+			ServiceBusSubscriber.Instance.Subscribe();
 		}
 	}
 }
