@@ -28,12 +28,16 @@ namespace CostService
 
 			var servicebusBootstrapper = new DefaultAzureServiceBusBootstrapper(new ServiceBusSubscriberConfiguration());
 
-			// TODO: Register handlers
-			//servicebusBootstrapper.MessageHandlerRegisterer.Register<MessageFromSharedAssembly>(HandleMessageFromSharedAssembly);
-			//servicebusBootstrapper.MessageHandlerRegisterer.Register<MessageCopiedInTwoDifferentAssembliesThatHasNewProperty>(HandleMessageCopiedInTwoDifferentAssembliesThatHasNewProperty);
-
-
+			// Register handlers
+			servicebusBootstrapper.MessageHandlerRegisterer.Register<InventoryChangedMessage.InventoryChangedMessage>(HandleInventoryChangedMessage);
+			
 			servicebusBootstrapper.Subscribe();
+		}
+
+
+		private static void HandleInventoryChangedMessage(InventoryChangedMessage.InventoryChangedMessage message)
+		{
+			// TODO
 		}
 	}
 
@@ -53,10 +57,7 @@ namespace CostService
 		{
 			get
 			{
-				// TODO: What are these??
-				//yield return "beard.fjkdslfjds";
-				//yield return "beard.vckjerfs";
-				yield return "boreal.shoppingcart";
+				yield return "beard.inventory";
 			}
 		}
 	}

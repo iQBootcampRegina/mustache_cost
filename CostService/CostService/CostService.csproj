@@ -106,6 +106,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShippingCharacteristics.cs" />
     <Compile Include="ShippingInventoryItem.cs" />
+    <Compile Include="SubscriptionMessages\Inventory\InventoryChangedMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
