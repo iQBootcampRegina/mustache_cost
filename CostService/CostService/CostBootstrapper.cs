@@ -10,7 +10,9 @@ namespace CostService
 	{
 		protected override void ApplicationStartup(Nancy.TinyIoc.TinyIoCContainer container, Nancy.Bootstrapper.IPipelines pipelines)
 		{
-			base.ApplicationStartup(container, pipelines);
+			base.ConfigureApplicationContainer(container);
+
+			container.Register<IShippingInventoryRepository, InMemoryShippingInventoryRepository>();
 		}
 	}
 }
