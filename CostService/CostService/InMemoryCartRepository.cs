@@ -7,6 +7,9 @@ namespace CostService
 {
 	public class InMemoryCartRepository : ICartRepository
 	{
+		// HACK - I'm sorry :(
+		public static InMemoryCartRepository Instance { get; private set; }
+
 		readonly IDictionary<Guid, Cart> _carts;
 		private readonly IShippingInventoryRepository _shippingInventoryRepository;
 
@@ -14,6 +17,8 @@ namespace CostService
 		{
 			_carts = new Dictionary<Guid, Cart>();
 			_shippingInventoryRepository = shippingInventoryRepository;
+
+			Instance = this;
 		}
 
 		/// <summary>
@@ -49,6 +54,17 @@ namespace CostService
 
 			// return the cart
 			return cart;
+		}
+
+		public Cart GetOrCreateNewCartForCache(Guid cartId)
+		{
+			Cart c;
+			if (_carts.TryGetValue(cartId, out c))
+				return c;
+			
+			c = new Cart {CartId = cartId};
+			_carts[cartId] = c;
+			return c;
 		}
 	}
 }

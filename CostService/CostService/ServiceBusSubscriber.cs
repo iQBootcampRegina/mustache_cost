@@ -30,6 +30,7 @@ namespace CostService
 
 			// Register handlers
 			servicebusBootstrapper.MessageHandlerRegisterer.Register<InventoryChangedMessage.InventoryChangedMessage>(HandleInventoryChangedMessage);
+			servicebusBootstrapper.MessageHandlerRegisterer.Register<SubscriptionMessages.Cart.CartItemUpdatedMessage>(HandleCartItemUpdatedMessage);
 			
 			servicebusBootstrapper.Subscribe();
 		}
@@ -56,6 +57,21 @@ namespace CostService
 
 			if (addItem)
 				InMemoryShippingInventoryRepository.Instance.CacheItem(item);
+		}
+
+		private static void HandleCartItemUpdatedMessage(SubscriptionMessages.Cart.CartItemUpdatedMessage message)
+		{
+			// HACK - I'm sorry :(
+			if (InMemoryCartRepository.Instance == null) return; // we don't care about messages until the repository is initialized
+
+			var cart = InMemoryCartRepository.Instance.GetOrCreateNewCartForCache(message.CartId);
+			var prod = cart.Items.FirstOrDefault(x => x.ProductId == message.ProductId);
+			if (prod == null)
+			{
+				prod = new Item {ProductId = message.ProductId};
+				cart.Items.Add(prod);
+			}
+			prod.Qty = message.Quantity;
 		}
 	}
 
