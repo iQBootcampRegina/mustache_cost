@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Nancy;
+using Nancy.ModelBinding;
 
 namespace CostService
 {
@@ -19,6 +20,7 @@ namespace CostService
 			Get["/"] = x => "TEST";
 			Get["/cache({id})"] = x => _shippingInventoryRepository.GetItem(x.id);
 			Get["/cache"] = x => CacheProducts();
+			Put["/Cost({id})"] = x => _cartRepository.GetCost(x.id);
 		}
 
 		private object CacheProducts()

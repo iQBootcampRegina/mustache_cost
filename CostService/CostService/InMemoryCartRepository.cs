@@ -20,9 +20,8 @@ namespace CostService
 		/// Calculates the cost of the shipment
 		/// </summary>
 		/// <param name="cartId">The cartId we want to calculate the cost for</param>
-		/// <param name="postalCode">The postal code we're sending the order to</param>
 		/// <returns>A cart with updated subtotal, shippingCost, and total</returns>
-		public Cart GetCost(Guid cartId, string postalCode)
+		public Cart GetCost(Guid cartId)
 		{
 			// get cart and starting values
 			var cart = _carts[cartId];
@@ -42,7 +41,8 @@ namespace CostService
 			cart.SubTotal = subTotal;
 
 			// calculate shipping cost (just the weight)
-			cart.ShippingCost = weight;
+			if (cart.PostalCode != null)
+				cart.ShippingCost = weight;
 
 			// update total
 			cart.Total = cart.SubTotal + cart.ShippingCost;
