@@ -2,8 +2,8 @@
 {
 	public class Item
 	{
-		public ShippingInventoryItem product { get; set; }
-		public int qty { get; set; }
-		public double price  { get; set; }
+		public ShippingInventoryItem Product { get; set; }
+		public int Qty { get; set; }
+		public decimal Price  { get; set; }
 	}
 }

@@ -8,5 +8,6 @@ namespace CostService
 {
 	interface ICartRepository
 	{
+		Cart GetCost(Guid cartId, string postalCode);
 	}
 }
