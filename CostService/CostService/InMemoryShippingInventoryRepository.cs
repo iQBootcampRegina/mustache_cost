@@ -8,11 +8,15 @@ namespace CostService
 {
 	public class InMemoryShippingInventoryRepository : IShippingInventoryRepository
 	{
+		// HACK - I'm sorry :(
+		public static InMemoryShippingInventoryRepository Instance { get; private set; }
+
 		private readonly Dictionary<int, ShippingInventoryItem> _products;
 
 		public InMemoryShippingInventoryRepository()
 		{
 			_products = new Dictionary<int, ShippingInventoryItem>();
+			Instance = this;
 		}
 
 		public void ClearCache()
@@ -38,6 +42,13 @@ namespace CostService
 			var item = JsonConvert.DeserializeObject<ShippingInventoryItem>(response.Content);
 			_products[item.Id] = item;
 
+			return item;
+		}
+
+		public ShippingInventoryItem GetItemIfExisting(int productId)
+		{
+			ShippingInventoryItem item;
+			_products.TryGetValue(productId, out item);
 			return item;
 		}
 	}

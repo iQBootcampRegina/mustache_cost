@@ -37,7 +37,25 @@ namespace CostService
 
 		private static void HandleInventoryChangedMessage(InventoryChangedMessage.InventoryChangedMessage message)
 		{
-			// TODO
+			// HACK - I'm sorry :(
+			if (InMemoryShippingInventoryRepository.Instance == null) return; // we don't care about messages until the repository is initialized
+
+			bool addItem = false;
+			var item = InMemoryShippingInventoryRepository.Instance.GetItemIfExisting(message.Id);
+			if (item == null)
+			{
+				addItem = true;
+				item = new ShippingInventoryItem {Id = message.Id, ShippingCharacteristics = new ShippingCharacteristics()};
+			}
+
+			item.ListPrice = message.ListPrice;
+			item.ShippingCharacteristics.Weight = (decimal)message.Weight;
+			item.ShippingCharacteristics.Height = (decimal)message.Height;
+			item.ShippingCharacteristics.Depth = (decimal)message.Depth;
+			item.ShippingCharacteristics.Width = (decimal)message.Width;
+
+			if (addItem)
+				InMemoryShippingInventoryRepository.Instance.CacheItem(item);
 		}
 	}
 
