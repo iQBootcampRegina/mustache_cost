@@ -20,7 +20,7 @@ namespace CostService
 			Get["/"] = x => "TEST";
 			Get["/cache({id})"] = x => _shippingInventoryRepository.GetItem(x.id);
 			Get["/cache"] = x => CacheProducts();
-			Put["/Cost({id})"] = x => _cartRepository.GetCost(x.id);
+			Get["/Cost({id})"] = x => _cartRepository.GetCost(x.id);
 		}
 
 		private object CacheProducts()
