@@ -8,6 +8,7 @@ namespace CostService
 	public class ShippingInventoryItem
 	{
 		public int ProductId { get; set; }
+		public decimal Price { get; set; }
 		public decimal Weight { get; set; }
 		public decimal Width { get; set; }
 		public decimal Length { get; set; }

@@ -13,6 +13,7 @@ namespace CostService
 		public CostModule()
 		{
 			Get["/"] = x => "TEST";
+			Get["/cache"] = x => "";
 		}
 	}
 }
