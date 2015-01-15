@@ -89,6 +89,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cart.cs" />
+    <Compile Include="ICartRepository.cs" />
+    <Compile Include="InMemoryCartRepository.cs" />
     <Compile Include="InMemoryShippingInventoryRepository.cs" />
     <Compile Include="IShippingInventoryRepository.cs" />
     <Compile Include="Item.cs" />

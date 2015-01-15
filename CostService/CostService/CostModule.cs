@@ -8,6 +8,8 @@ namespace CostService
 {
 	public class CostModule : NancyModule
 	{
+		private readonly ICartRepository _cartRepository;
+
 		public CostModule()
 		{
 			Get["/"] = x => "TEST";
