@@ -15,6 +15,7 @@ namespace CostService
 			var response = InventoryServiceHelper.GetInventoryClient().Execute(InventoryServiceHelper.RequestProducts());
 			var products = JsonConvert.DeserializeObject<List<ShippingInventoryItem>>(response.Content);
 
+			repository.ClearCache();
 			products.ForEach(item => repository.CacheItem(item));
 		}
 

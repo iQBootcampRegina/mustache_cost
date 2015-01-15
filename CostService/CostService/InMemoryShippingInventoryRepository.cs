@@ -13,7 +13,11 @@ namespace CostService
 		public InMemoryShippingInventoryRepository()
 		{
 			_products = new Dictionary<int, ShippingInventoryItem>();
-			CachingHelper.CacheShippingItems(this);
+		}
+
+		public void ClearCache()
+		{
+			_products.Clear();
 		}
 
 		public ShippingInventoryItem CacheItem(ShippingInventoryItem item)

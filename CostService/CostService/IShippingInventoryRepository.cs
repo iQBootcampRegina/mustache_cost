@@ -9,6 +9,7 @@ namespace CostService
 	public interface IShippingInventoryRepository
 	{
 		ShippingInventoryItem CacheItem(ShippingInventoryItem item);
+		void ClearCache();
 		ShippingInventoryItem GetItem(int productId);
 	}
 }

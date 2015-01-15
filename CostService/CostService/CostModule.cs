@@ -17,11 +17,14 @@ namespace CostService
 			_shippingInventoryRepository = shippingInventoryRepository;
 
 			Get["/"] = x => "TEST";
-			Get["/cache"] = x => "";
+			Get["/cache({id})"] = x => _shippingInventoryRepository.GetItem(x.id);
+			Get["/cache"] = x => CacheProducts();
+		}
 
+		private object CacheProducts()
+		{
 			CachingHelper.CacheShippingItems(_shippingInventoryRepository);
-
-			//shippingInventoryRepository.GetItem(1);
+			return HttpStatusCode.OK;
 		}
 	}
 }
