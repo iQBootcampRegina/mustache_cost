@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CostService
 {
-	interface ICartRepository
+	public interface ICartRepository
 	{
 		Cart GetCost(Guid cartId, string postalCode);
 	}

@@ -31,7 +31,7 @@ namespace CostService
 			foreach (Item item in cart.Items)
 			{
 				cart.SubTotal += (item.Price * item.Qty);
-				weight += (item.Product.Weight * item.Qty);
+				weight += (item.Product.ShippingCharacteristics.Weight * item.Qty);
 			}
 
 			// calculate shipping cost (just the weight)

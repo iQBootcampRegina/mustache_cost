@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Newtonsoft.Json;
 
 namespace CostService
 {
@@ -12,23 +13,26 @@ namespace CostService
 		public InMemoryShippingInventoryRepository()
 		{
 			_products = new Dictionary<int, ShippingInventoryItem>();
+			CachingHelper.CacheShippingItems(this);
 		}
 
-		public ShippingInventoryItem CacheItem(int productId, decimal weight, decimal width, decimal length, decimal depth)
+		public ShippingInventoryItem CacheItem(ShippingInventoryItem item)
 		{
-			throw new NotImplementedException();
+			_products[item.Id] = item;
+			return item;
 		}
 
 		public ShippingInventoryItem GetItem(int productId)
 		{
-			return _products[productId] ?? GetItemFromInventoryService(productId);
+			return _products.ContainsKey(productId) ? _products[productId] : GetItemFromInventoryService(productId);
 		}
 
 		private ShippingInventoryItem GetItemFromInventoryService(int productId)
 		{
 			//call inventory service and get item;
-			var item = new ShippingInventoryItem(){ ProductId = productId };
-			_products.Add(productId, item);
+			var response = InventoryServiceHelper.GetInventoryClient().Execute(InventoryServiceHelper.RequestProduct(productId));
+			var item = JsonConvert.DeserializeObject<ShippingInventoryItem>(response.Content);
+			_products[item.Id] = item;
 
 			return item;
 		}

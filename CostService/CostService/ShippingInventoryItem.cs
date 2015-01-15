@@ -7,19 +7,45 @@ namespace CostService
 {
 	public class ShippingInventoryItem
 	{
-		public int ProductId { get; set; }
-		public decimal Price { get; set; }
-		public decimal Weight { get; set; }
-		public decimal Width { get; set; }
-		public decimal Length { get; set; }
-		public decimal Depth { get; set; }
+		/// <summary>
+		/// Unique Identifier for the Product
+		/// </summary>
+		public int Id { get; set; }
 
-		public void SetDimensions(decimal width, decimal height, decimal depth)
-		{
-			Width = width;
-			Length = Length;
-			Depth = depth;
-		}
+		/// <summary>
+		/// Name for the Product
+		/// </summary>
+		public string Name { get; set; }
+
+		/// <summary>
+		/// Description for the Product
+		/// </summary>
+		public string Description { get; set; }
+
+		/// <summary>
+		/// Supplier cost of the product
+		/// </summary>
+		public decimal Cost { get; set; }
+
+		/// <summary>
+		/// List price for sale of the product
+		/// </summary>
+		public decimal ListPrice { get; set; }
+
+		/// <summary>
+		/// Where in the warehouse the product can be found
+		/// </summary>
+		public string WarehouseLocation { get; set; }
+
+		/// <summary>
+		/// Amount of the product available for sale
+		/// </summary>
+		public int QuantityAvailable { get; set; }
+
+		/// <summary>
+		/// Packaging information for the product
+		/// </summary>
+		public ShippingCharacteristics ShippingCharacteristics { get; set; }
 
 		
 	}

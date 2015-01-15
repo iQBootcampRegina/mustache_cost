@@ -12,8 +12,11 @@ namespace CostService
 		{
 			base.ConfigureApplicationContainer(container);
 
-			container.Register<IShippingInventoryRepository, InMemoryShippingInventoryRepository>();
+			container.Register<IShippingInventoryRepository, InMemoryShippingInventoryRepository>().AsSingleton();
+			container.Register<ICartRepository, InMemoryCartRepository>().AsSingleton();
 			ServiceBusSubscriber.Instance.Subscribe();
 		}
+
+	
 	}
 }
