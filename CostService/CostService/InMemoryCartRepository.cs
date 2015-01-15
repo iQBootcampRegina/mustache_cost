@@ -8,12 +8,10 @@ namespace CostService
 	public class InMemoryCartRepository : ICartRepository
 	{
 		readonly IDictionary<Guid, Cart> _carts;
-		private readonly IShippingInventoryRepository _shippingInventoryRepository;
 
-		public InMemoryCartRepository(IShippingInventoryRepository shippingInventoryRepository)
+		public InMemoryCartRepository()
 		{
 			_carts = new Dictionary<Guid, Cart>();
-			_shippingInventoryRepository = shippingInventoryRepository;
 		}
 
 		/// <summary>
@@ -25,21 +23,16 @@ namespace CostService
 		public Cart GetCost(Guid cartId, string postalCode)
 		{
 			// get cart and starting values
-			var cart = _carts[cartId];
-			decimal subTotal = 0;
+			Cart cart = _carts[cartId];
+			cart.SubTotal = 0;
 			decimal weight = 0;
-			
+
 			// sum up total weight and subtotal of items
 			foreach (Item item in cart.Items)
 			{
-				var product = _shippingInventoryRepository.GetItem(item.ProductId);
-				item.Price = product.Price;
-				subTotal += (item.Price * item.Qty);
-				weight += (product.Weight * item.Qty);
+				cart.SubTotal += (item.Price * item.Qty);
+				weight += (item.Product.Weight * item.Qty);
 			}
-
-			// calculate subtotal
-			cart.SubTotal = subTotal;
 
 			// calculate shipping cost (just the weight)
 			cart.ShippingCost = weight;
@@ -50,5 +43,7 @@ namespace CostService
 			// return the cart
 			return cart;
 		}
+
+
 	}
 }

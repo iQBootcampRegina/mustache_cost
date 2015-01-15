@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CostService
 {
-	public interface IShippingInventoryRepository
+	interface IShippingInventoryRepository
 	{
 		ShippingInventoryItem CacheItem(ShippingInventoryItem item);
 		ShippingInventoryItem GetItem(int productId);
